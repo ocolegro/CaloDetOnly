@@ -1,5 +1,5 @@
 #include "DetectorConstruction.hh"
-//#include "DetectorMessenger.hh"
+#include "DetectorMessenger.hh"
 
 //#include <boost/algorithm/string.hpp>
 
@@ -40,7 +40,7 @@ DetectorConstruction::DetectorConstruction(G4int ver, G4int mod) :
 		//Add the target
 
 	DefineMaterials();
-	//m_detectorMessenger = new DetectorMessenger(this);
+	m_detectorMessenger = new DetectorMessenger(this);
 	UpdateCalorSize();
 	std::cout << "The offset is " << -0.5 * (GetCalorSizeZ())/cm << std::endl;
         //SetMagField("b18d36.dat",0.5*GetCalorSizeZ()-20*cm);
@@ -181,7 +181,7 @@ void DetectorConstruction::buildHCal(){
 	}
 }
 DetectorConstruction::~DetectorConstruction() {
-	//delete m_detectorMessenger;
+	delete m_detectorMessenger;
 }
 
 //

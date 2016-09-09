@@ -16,7 +16,7 @@ class G4LogicalVolume;
 class G4VPhysicalVolume;
 class G4Material;
 class G4UniformMagField;
-//class DetectorMessenger;
+class DetectorMessenger;
 class G4Colour;
 
 /**
@@ -168,7 +168,7 @@ private:
 	std::vector<G4LogicalVolume*> m_logicSi; //pointer to the logical Si volumes
 	std::vector<G4LogicalVolume*> m_logicAbs; //pointer to the logical absorber volumes situated just before the si
 
-	//DetectorMessenger* m_detectorMessenger;  //pointer to the Messenger
+	DetectorMessenger* m_detectorMessenger;  //pointer to the Messenger
 };
 
 #endif

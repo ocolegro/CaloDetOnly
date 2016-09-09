@@ -24,17 +24,20 @@ int main(int argc, char** argv)  {
     G4VisManager* visManager = new G4VisExecutive;
     visManager->Initialize();
 
+    G4UIExecutive* ui = new G4UIExecutive(argc, argv);
+    G4UImanager* UImanager = G4UImanager::GetUIpointer();
+
     runManager->SetUserInitialization(new FTFP_BERT);
     runManager->SetUserAction(new PrimaryGeneratorAction());
     runManager->SetUserInitialization(new DetectorConstruction());
+    UImanager->ApplyCommand("/N03/det/setModel 2");
     runManager->Initialize();
 
     G4GDMLParser* parser = new G4GDMLParser();
     G4VPhysicalVolume* world =
             G4TransportationManager::GetTransportationManager()->GetNavigatorForTracking()->GetWorldVolume();
-    parser->Write("calo.gdml", world);
+    parser->Write("calo_model2.gdml", world);
 
-    G4UIExecutive* ui = new G4UIExecutive(argc, argv);
     ui->SessionStart();
     delete ui;
 
