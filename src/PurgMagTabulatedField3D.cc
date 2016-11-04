@@ -128,9 +128,9 @@ PurgMagTabulatedField3D::PurgMagTabulatedField3D(const char* filename,
         while(iss >> word){
             tokens.push_back(word);
         }
-        zval = 0*cm;//stod(tokens.at(0)) * cm; // Read in the z-coordinate
+        zval = stod(tokens.at(0)) * cm; // Read in the z-coordinate
         for(unsigned ix=0; ix < (nxy-1); ix++){
-            double btemp  = 0*cm;//stod(tokens.at(ix+1)) ;
+            double btemp  = stod(tokens.at(ix+1)) ;
             yField[ix][0][iz] = 3*btemp  * fieldUnit;
             xField[ix][0][iz] = 0.0  * fieldUnit;
             zField[ix][0][iz] = 0.0 * fieldUnit;
@@ -149,28 +149,31 @@ PurgMagTabulatedField3D::PurgMagTabulatedField3D(const char* filename,
 
 }
 
+
 void PurgMagTabulatedField3D::GetFieldValue(const G4double point[4],
 				      G4double *Bfield ) const
 {
-
   G4double lenUnit = cm;// milimeter;
   G4double fieldUnit = gauss;
   G4double x = point[0]/lenUnit;
   G4double y = point[1]/lenUnit;
   G4double z = 1e6*lenUnit;
-  if (point[2] < 0 && fabs(point[2]) < fZoffset ){
-  	z = (point[2] + fZoffset)/lenUnit ;
-  }
-  if (point[2] < 0 && fabs(point[2]) >= fZoffset ){
-        z = fabs((point[2] + fZoffset)/lenUnit) ;
-  } 
-// G4cout << z << ", " << point[2] << ", " << fZoffset/lenUnit << ", " << maxz/lenUnit << G4endl;
-// G4cout << z << ", " << point[2] << ", " << fZoffset << ", " << maxz << G4endl;
+  G4double distance = 0*cm;
 
- // Check that the point is within the defined region 
-  if ( //fabs(x)>=minxy && fabs(x)<=maxxy &&
-       //fabs(y)>=minxy && fabs(y)<=maxxy &&
-       fabs(z)<=fabs(maxz)  ) {
+
+  if (point[2] < 0){
+  	z = (point[2] + fZoffset - 2*(point[2] < -fZoffset)*(point[2] + fZoffset) )/lenUnit ;
+        distance = abs(point[2]/lenUnit + fZoffset/lenUnit) * cm;
+
+  }
+  else {//(point[2] < 0 && fabs(point[2]) >= fZoffset ){
+         z = fabs(point[2] + fZoffset)/lenUnit ;
+ 	 distance = abs(point[2]/lenUnit + fZoffset/lenUnit) * cm;
+
+  } 
+  if (distance < 150*cm){
+
+
 	G4int xlow  = floor(fabs(x));
 	G4int xhigh = xlow + 1;
 	G4int ylow  = floor(fabs(y));
