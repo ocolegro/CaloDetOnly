@@ -128,9 +128,9 @@ PurgMagTabulatedField3D::PurgMagTabulatedField3D(const char* filename,
         while(iss >> word){
             tokens.push_back(word);
         }
-        zval = 0;//stod(tokens.at(0)) * cm; // Read in the z-coordinate
+        zval = stod(tokens.at(0)) * cm; // Read in the z-coordinate
         for(unsigned ix=0; ix < (nxy-1); ix++){
-            double btemp  = 0;//stod(tokens.at(ix+1)) ;
+            double btemp  = stod(tokens.at(ix+1)) ;
             yField[ix][0][iz] = 3*btemp  * fieldUnit;
             xField[ix][0][iz] = 0.0  * fieldUnit;
             zField[ix][0][iz] = 0.0 * fieldUnit;
