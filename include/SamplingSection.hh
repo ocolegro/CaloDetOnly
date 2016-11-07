@@ -16,7 +16,7 @@
 class SamplingSection {
 public:
 	//CTOR
-	SamplingSection(std::vector<std::pair <G4double,std::string>> iEle);
+	SamplingSection(std::vector<std::pair <G4double,std::string> > iEle);
 
 
 			//DTOR

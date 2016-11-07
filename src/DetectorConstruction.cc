@@ -31,7 +31,7 @@ using namespace std;
 //
 
 DetectorConstruction::DetectorConstruction(G4int ver) :
-		version_(ver), hcalThickness(0) {
+                version_(ver), hcalThickness(0){
 
 //	if (version_ == 2)
 //		buildTracker();
@@ -636,7 +636,7 @@ G4VSolid *DetectorConstruction::constructSolid(std::string baseName,
 	}
 	else{
 		solid = new G4Box(baseName + "box", m_HCALSizeXY / 2, m_HCALSizeXY / 2, thick / 2);
-		if (hcalThickness/60 < 20){
+/*		if (hcalThickness/60 < 20){
 			G4double hexaRad = 85.;
 			G4double hcalXYSide = hexaRad*6,hcalLen=m_ECALSizeZ,constShift = -15;
 			G4ThreeVector trans = G4ThreeVector(hcalXYSide/2 + hcalThickness + thick/2.0+10,0,-hcalLen/2.0 -hcalThickness - thick/2.0 + constShift);
@@ -682,7 +682,7 @@ G4VSolid *DetectorConstruction::constructSolid(std::string baseName,
 			   hcalThickness += thick/mm;
 			solid = sUnion;
 
-		}
+		}*/
 	}
 	return solid;
 }

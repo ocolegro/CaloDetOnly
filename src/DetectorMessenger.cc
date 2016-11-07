@@ -80,9 +80,6 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
 	if (command == MagFieldCmd) {
 		Detector->SetMagField(MagFieldCmd->GetNewDoubleValue(newValue));
 	}
-	if (command == SetModelCmd) {
-		Detector->SetDetModel(SetModelCmd->GetNewIntValue(newValue));
-	}
 
 }
 

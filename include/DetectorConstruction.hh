@@ -3,7 +3,7 @@
 
 #include "SamplingSection.hh"
 
-//#include "PurgMagTabulatedField3D.hh"
+#include "PurgMagTabulatedField3D.hh"
 #include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
 
@@ -27,25 +27,18 @@ class DetectorConstruction: public G4VUserDetectorConstruction {
 public:
 
 	enum DetectorVersion {
-		TEH			 = 1,
-		TE			 = 2,
-		TH			 = 3,
-		T			 = 4,
-		HE			 = 5,
-		H			 = 6,
-		E			 = 7
+		HE			 = 1,
+		TEH			 = 2,
+
 	};
 
-	enum DetectorModel {
-		m_SIMPLE_20 = 0, m_SIMPLE_50 = 1, m_FULLSECTION = 2, m_SIMPLE_100 = 3
-	};
+
 
 
 	/**
 	 @short CTOR
 	 */
-	DetectorConstruction(G4int ver = DetectorConstruction::TEH,
-			G4int mod = DetectorConstruction::m_SIMPLE_20);
+	DetectorConstruction(G4int ver = DetectorConstruction::TEH);
 
 	void buildHGCALFHE(const unsigned aVersion);
 	void buildHGCALBHE(const unsigned aVersion);
@@ -57,9 +50,7 @@ public:
 		return &m_caloStruct;
 	}
 
-	int getModel() const {
-		return model_;
-	}
+
 	int getVersion() const {
 		return version_;
 	}
@@ -82,12 +73,11 @@ public:
 	/**
 	 @short set magnetic field
 	 */
-	void SetDetModel(G4int model);
 
 	void SetMagField(G4double fieldValue);
-	//G4UniformMagField* m_magField;      //pointer to the magnetic field
+	G4UniformMagField* m_magField;      //pointer to the magnetic field
     void SetMagField(char *fileName, G4double zOffset);
-	//PurgMagTabulatedField3D *p_magField;
+	PurgMagTabulatedField3D *p_magField;
 
 	/**
 	 @short DTOR
@@ -97,8 +87,11 @@ public:
 	/**
 	 @short getters
 	 */
-	G4double GetCalorSizeXY() {
-		return m_CalorSizeXY;
+	G4double GetECALSizeXY() {
+		return m_ECALSizeXY;
+	}
+	G4double GetHCALSizeXY() {
+		return m_HCALSizeXY;
 	}
 	G4double GetCalorSizeZ() {
 		return m_CalorSizeZ;
@@ -127,8 +120,7 @@ private:
 	//detector version
 	int version_;
 	//integer to define detector model
-	int model_;
-
+	int	hcalThickness;
 	/**
 	 @short compute the calor dimensions
 	 */
@@ -154,9 +146,7 @@ private:
 
 	std::vector<G4Material*> m_SensitiveMaterial;
 	G4int initLayer_;
-	G4double m_CalorSizeXY, m_CalorSizeZ;
-	G4double m_minRadius, m_maxRadius;
-	G4double m_maxTheta;
+	G4double m_ECALSizeXY, m_HCALSizeXY, m_ECALSizeZ,m_CalorSizeZ;
 	G4double m_z0pos;
 	G4double m_WorldSizeXY, m_WorldSizeZ;
 	G4double m_nSectors, m_sectorWidth, m_interSectorWidth;

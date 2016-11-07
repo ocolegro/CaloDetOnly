@@ -4,7 +4,7 @@
 #include "G4SystemOfUnits.hh"
 //
 
-SamplingSection::SamplingSection(std::vector<std::pair <G4double,std::string>> iEle) {
+SamplingSection::SamplingSection(std::vector<std::pair <G4double,std::string> > iEle) {
 
 			std::vector<G4double> aThicknessVec;std::vector<std::string> aMaterialVec;
 				for (unsigned i = 0; i < iEle.size(); i++)
