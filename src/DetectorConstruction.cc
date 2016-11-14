@@ -321,7 +321,7 @@ void DetectorConstruction::UpdateCalorSize() {
 	for (size_t i = 0; i < m_caloStruct.size(); i++)
 		m_caloStruct[i].setNumberOfSectors(m_nSectors);
 
-	m_WorldSizeZ = m_CalorSizeZ * 1.1;
+	m_WorldSizeZ = m_CalorSizeZ ;
         m_WorldSizeXY = m_ECALSizeXY * 1.1;
 //Uncomment for HCAL        m_WorldSizeXY = m_HCALSizeXY * 1.1;
 
